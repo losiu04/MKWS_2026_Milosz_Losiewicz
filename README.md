@@ -1,64 +1,64 @@
-# MKWS 2026 – Optymalizacja termochemiczna silnika rakietowego N₂O/Ethanol
+# MKWS 2026 – Thermochemical Optimization of an N₂O/Ethanol Rocket Engine
 
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://python.org)
 [![Cantera](https://img.shields.io/badge/Cantera-3.2%2B-orange)](https://cantera.org)
 
-Analiza równowagi termochemicznej i optymalizacja parametrów pracy silnika rakietowego na mieszankę **N₂O (utleniacz) / C₂H₅OH (paliwo)** przy użyciu biblioteki **Cantera** z mechanizmem **GRI-Mech 3.0**.
+Thermochemical equilibrium analysis and performance optimization of a bipropellant rocket engine burning **N₂O (oxidizer) / C₂H₅OH (fuel)** using the **Cantera** library with the **GRI-Mech 3.0** mechanism.
 
-Projekt wykonany w ramach kursu *"Metody komputerowe w spalaniu" (MKWS 2026)*.
-
----
-
-## Spis treści
-
-- [Opis projektu](#opis-projektu)
-- [Wyniki](#wyniki)
-- [Wymagania](#wymagania)
-- [Uruchomienie](#uruchomienie)
-- [Struktura plików](#struktura-plików)
-- [Figury](#figury)
-- [Referencje](#referencje)
+Project completed as part of the course *"Computer Methods in Combustion" (MKWS 2026)*.
 
 ---
 
-## Opis projektu
+## Table of Contents
 
-Celem projektu jest znalezienie optymalnego stosunku masowego utleniacza do paliwa (O/F) dla hipotetycznego silnika rakietowego na ciekłe N₂O i etanol, przy założeniach:
-
-| Parametr             | Wartość  |
-|----------------------|----------|
-| Ciśnienie w komorze  | 45 bar   |
-| Ciśnienie otoczenia  | 1 atm    |
-| Temperatura wlotowa  | 300 K    |
-
-### Metodologia
-
-1. **Generowanie mechanizmu** – Redukcja GRI-Mech 3.0 do 11 gatunków + dodanie etanolu (C₂H₅OH) ze współczynnikami NASA7 z bazy Burcata.
-2. **Obliczenia równowagowe** – Dla 281 punktów (O/F = 1.0–15.0, krok 0.05) wyznaczono skład równowagowy metodą HP (stała entalpia, stałe ciśnienie) w Cantera.
-3. **Parametry silnika** – Obliczono charakterystyczną prędkość `c*`, współczynnik ciągu `Cf`, ciśnienie na wyjściu z dyszy, liczbę Macha na wyjściu `Me`, stopień rozszerzenia dyszy `ε` oraz impuls właściwy `Isp` (funkcja celu) według teorii dyszy Vandenkerckhove'a.
-4. **Optymalizacja** – Maksymalizacja `Isp` względem O/F.
+- [Project Description](#project-description)
+- [Results](#results)
+- [Requirements](#requirements)
+- [Usage](#usage)
+- [File Structure](#file-structure)
+- [Figures](#figures)
+- [References](#references)
 
 ---
 
-## Wyniki
+## Project Description
 
-### Optymalny punkt pracy
+The goal of the project is to find the optimal oxidizer-to-fuel mass ratio (O/F) for a hypothetical liquid rocket engine burning N₂O and ethanol, under the following assumptions:
 
-| Parametr                      | Wartość     | Jednostka   |
-|-------------------------------|-------------|-------------|
-| **Optymalny O/F**             | **4.10**    | –           |
-| **Maksymalny Isp**            | **221.03**  | s           |
-| Prędkość charakterystyczna c* | 1422.7      | m/s         |
-| Temperatura w komorze Tc      | 3194.4      | K           |
-| Średnia masa molowa M_mean    | 24.78       | kg/kmol     |
-| Wykładnik izentropy γ         | 1.234       | –           |
-| Liczba Macha na wyjściu Me    | 3.000       | –           |
-| Stopień rozszerzenia ε        | 6.092       | –           |
-| Współczynnik ciągu Cf         | 1.524       | –           |
+| Parameter         | Value  |
+|-------------------|--------|
+| Chamber pressure  | 45 bar |
+| Ambient pressure  | 1 atm  |
+| Inlet temperature | 300 K  |
 
-### Skład produktów (przy O/F = 4.10)
+### Methodology
 
-| Gatunek | Udział molowy |
+1. **Mechanism generation** – Reduction of GRI-Mech 3.0 to 11 species + addition of ethanol (C₂H₅OH) with NASA7 polynomial coefficients from the Burcat thermodynamic database.
+2. **Equilibrium calculations** – For 281 points (O/F = 1.0–15.0, step 0.05), the equilibrium composition was determined using the HP method (constant enthalpy, constant pressure) in Cantera.
+3. **Engine parameters** – Computed characteristic velocity `c*`, thrust coefficient `Cf`, nozzle exit pressure, exit Mach number `Me`, nozzle expansion ratio `ε`, and specific impulse `Isp` (objective function) using Vandenkerckhove's isentropic nozzle theory.
+4. **Optimization** – Maximization of `Isp` with respect to O/F.
+
+---
+
+## Results
+
+### Optimal operating point
+
+| Parameter                    | Value       | Unit      |
+|------------------------------|-------------|-----------|
+| **Optimal O/F**              | **4.10**    | –         |
+| **Maximum Isp**              | **221.03**  | s         |
+| Characteristic velocity c*   | 1422.7      | m/s       |
+| Chamber temperature Tc       | 3194.4      | K         |
+| Mean molar mass M_mean       | 24.78       | kg/kmol   |
+| Isentropic exponent γ        | 1.234       | –         |
+| Exit Mach number Me          | 3.000       | –         |
+| Expansion ratio ε            | 6.092       | –         |
+| Thrust coefficient Cf        | 1.524       | –         |
+
+### Product composition (at O/F = 4.10)
+
+| Species | Mole fraction |
 |---------|--------------:|
 | N₂      |        45.01% |
 | H₂O     |        24.49% |
@@ -73,14 +73,14 @@ Celem projektu jest znalezienie optymalnego stosunku masowego utleniacza do pali
 
 ---
 
-## Wymagania
+## Requirements
 
 - Python 3.10+
 - [Cantera](https://cantera.org) 3.2+
 - NumPy
 - Matplotlib
 
-Instalacja zależności:
+Install dependencies:
 
 ```bash
 pip install cantera numpy matplotlib
@@ -88,60 +88,60 @@ pip install cantera numpy matplotlib
 
 ---
 
-## Uruchomienie
+## Usage
 
 ```bash
-# Krok 1 – wygeneruj plik mechanizmu (tylko raz)
+# Step 1 – generate the mechanism file (only once)
 python generate_yaml.py
 
-# Krok 2 – uruchom optymalizację (generuje figury i wydruk w konsoli)
+# Step 2 – run the optimization (generates figures and console output)
 python lre_optimization.py
 
-# Krok 3 – eksportuj tabele CSV (opcjonalnie, do raportu)
+# Step 3 – export CSV tables (optional, for the report)
 python export_tables.py
 ```
 
-Skrypty należy uruchamiać z głównego katalogu projektu.
+Run all scripts from the project root directory.
 
 ---
 
-## Struktura plików
+## File Structure
 
 ```
 .
-├── generate_yaml.py          # Generator mechanizmu Cantera
-├── lre_optimization.py       # Główny skrypt optymalizacyjny
-├── export_tables.py          # Eksport wyników do CSV
-├── README.md                 # Ten plik
-├── Raport_MKWS2026_ML.pdf    # Pełny raport (PDF, jęz. polski)
+├── generate_yaml.py          # Cantera mechanism generator
+├── lre_optimization.py       # Main optimization script
+├── export_tables.py          # CSV table export script
+├── README.md                 # This file
+├── Raport_MKWS2026_ML.pdf    # Full report (PDF, Polish)
 ├── mechanisms/
-│   └── n2o_ethanol.yaml      # Mechanizm N₂O/etanol dla Cantery
+│   └── n2o_ethanol.yaml      # N₂O/ethanol Cantera mechanism
 ├── figures/
 │   ├── lre_performance.png   # Isp, c*, Tc, M_mean vs O/F
-│   ├── lre_composition.png   # Skład produktów vs O/F
-│   └── lre_isp_vs_epsilon.png# Isp vs stopień rozszerzenia dyszy
+│   ├── lre_composition.png   # Product composition vs O/F
+│   └── lre_isp_vs_epsilon.png# Isp vs nozzle expansion ratio
 └── tables/
-    ├── performance_sweep.csv # Pełny przegląd O/F (281 punktów)
-    ├── optimal_point.csv     # Metryki w punkcie optymalnym
-    └── composition_optimal.csv# Skład przy optymalnym O/F
+    ├── performance_sweep.csv # Full O/F sweep (281 points)
+    ├── optimal_point.csv     # Metrics at the optimal point
+    └── composition_optimal.csv# Composition at optimal O/F
 ```
 
 ---
 
-## Figury
+## Figures
 
 ![Performance](figures/lre_performance.png)
-*Parametry silnika w funkcji stosunku O/F: Isp, c*, Tc, średnia masa molowa.*
+*Engine parameters as a function of O/F ratio: Isp, c*, Tc, mean molar mass.*
 
 ![Composition](figures/lre_composition.png)
-*Skład molowy produktów spalania w funkcji stosunku O/F.*
+*Product species mole fractions as a function of O/F ratio.*
 
 ![Isp vs epsilon](figures/lre_isp_vs_epsilon.png)
-*Zależność impulsu właściwego od stopnia rozszerzenia dyszy (przy optymalnym O/F).*
+*Specific impulse as a function of nozzle expansion ratio (at optimal O/F).*
 
 ---
 
-## Referencje
+## References
 
 1. **Sutton, G. P., Biblarz, O.** – *Rocket Propulsion Elements*, 9th ed., Wiley, 2017.
 2. **Goodwin, D. G., et al.** – *Cantera: An Object-oriented Software Toolkit for Chemical Kinetics, Thermodynamics, and Transport Processes*, https://cantera.org.
